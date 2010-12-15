@@ -1,0 +1,56 @@
+<% if (session[:user].admin == 1) %>
+
+<h1>User Administration / Reports</h1>
+
+<table cellspacing="0" cellpadding="5" border=1>
+  <tr>
+    <th rowspan="2">Name</th>
+	<th rowspan="2">Adminstrator?</th>
+	<th rowspan="2">Posts</th>
+	<th colspan="2">Cheers</th>
+	<th colspan="2" rowspan="2">&nbsp;</th>
+  </tr>
+  <tr>
+	<th>Received</th>
+	<th>Made</th>
+  </tr>
+
+<% @users.each do |user| %>
+  <tr>
+    <td><font color="#2276BB"><b><%=h user.name %></b></font></td>
+    <td align="center">
+    	<% if (user.admin == 1) %>
+		Yes
+		<% end %>
+		&nbsp;
+    </td>
+	<td><%= user.posts.size %></td>
+	<td>
+		<% 
+           ct = 0
+           for n in 0 ... user.posts.size do
+		      ct += user.posts[n].cheers.size
+		   end 
+		%>
+		<%= ct %>
+    </td>
+	<td><%= user.cheers.size %></td>
+		
+	<% if (session[:user] != user) %>
+    <td><font size="1"><%= link_to 'Change Name/Password', edit_user_path(user), :style=>'color:#2276BB; font-weight:bold' %></font></td>
+    <td><font size="1"><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete, :style=>'color:#2276BB; font-weight:bold' %></font></td>
+	<% else %>
+	<td colspan="2">&nbsp;</td>
+	<% end %>
+  </tr>
+<% end %>
+</table>
+
+<br />
+<%= button_to "Create New Administrator", { :controller => "users", :action => 'newAdmin' } %>
+<br />
+<%= link_to 'Back to Posts', posts_path %>
+
+<% else %>
+<h1>Only administrators may use this page</h1>
+<% end %>

@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user: :mike
+  post: :three
+
+two:
+  user: :mike
+  post: :six

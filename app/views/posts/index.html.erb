@@ -1,0 +1,110 @@
+
+<h1>What's Happening?</h1>
+
+<% form_for :cheer do |g| %>
+  <%= g.error_messages %>
+<% end %>
+
+<% 
+user = session[:user];
+if (user)
+%>
+
+  <% form_for :post, :url => { :controller => :posts, :action => :create } do |f| %>
+    <%= f.error_messages %>
+
+    <table>
+    	<tr>
+  	    <td colspan="2">
+          <%= f.text_area :message, :rows => 1, :cols => 60 %>
+        </td>
+  	  </tr>
+	  <tr>
+        <td><font size="2" color="#999999"><b>Logged in as <%= user.name %></b>&nbsp;&nbsp;</font>
+			<font size="1">
+            <%= link_to 'Edit Account', { :controller => "users", :id => user, :action => 'edit' }, :style=>'color:#2276BB; font-weight:bold' %>&nbsp;&nbsp;
+			<%= link_to "Logout", { :controller => "login", :action => 'logout' }, :style=>'color:#2276BB; font-weight:bold' %>
+			<% if (user.admin == 1) %>&nbsp;&nbsp;
+			<%= link_to "User Administration/Reports", { :controller => "users", :action => 'index' }, :style=>'color:#2276BB; font-weight:bold' %>
+			<% end %>
+	    </td>
+        <td align="right"><%= f.submit "New Post", :class => "submit" %></td>
+	  </tr>
+    </table> 
+  <% end %>
+  <% else %>
+    <font size="2" color="#999999"><b>You are not logged in</b>&nbsp;&nbsp;</font>
+	<font size="1">
+			<%= link_to "Login", { :controller => "login", :action => 'index' }, :style=>'color:#2276BB; font-weight:bold' %>
+    </font>		
+<% end %>
+
+<table cellspacing="8">
+<% if !@posts.nil? %>
+<% @posts.each do |post| %>
+  <tr>
+	<td valign="top">
+   	<% if !post.post_id.nil? %>
+	&nbsp;</td><td><table width="100%"><tr><td valign="top">
+	<% end %>
+  	
+  	<font color="#2276BB"><b><%=h post.user.name %></b></font></td>
+
+    <td>
+    	<%=h post.message %>
+        <br>
+		  <font size="1">
+        	<%=h post.created_at %>
+			<% if (user) %>
+			  <% if (post.user == user) %>
+	    	    <%= link_to 'Edit', edit_post_path(post), :style=>'color:#2276BB; font-weight:bold' %>
+			  <% end %>
+			  <% if (post.user == user || user.admin == 1) %>
+    		    <%= link_to 'Delete', post, :confirm => 'Are you sure?', :method => :delete, :style=>'color:#2276BB; font-weight:bold' %>
+			  <% end %>
+		      <% if post.post_id.nil? %>
+   			    <%= link_to "Reply", { :action => 'new', :post_id => post.id }, :style=>'color:#2276BB; font-weight:bold' %>
+			  <% end %>
+			<% end %>
+		  </font>
+	</td>
+   	<% if !post.post_id.nil? %>
+	</td></tr></table>
+	<% end %>
+    <td valign="top">&nbsp;
+      <% if post.cheers.length > 0 %>
+    	<font color="#00CC00"><%= post.cheers.length %> Cheer<%= (post.cheers.length == 1 ? "" : "s") %></font>
+      <% end %>
+
+      <% 
+		 if (user)
+		    hasCheered = false
+			for i in 0 ... post.cheers.size
+			  if (post.cheers[i].user == user)
+			    hasCheered = true
+	   %>
+    	        <font size="1"><%= link_to 'Uncheer', { :action => "cheer", :post_id => post.id }, :method => :post, :style=>'color:#2276BB; font-weight:bold' %></font>
+	   <%
+		      break;
+              end
+		    end
+            if (!hasCheered && post.user != user)
+       %>
+    	      <font size="1"><%= link_to 'Cheer', { :action => "cheer", :post_id => post.id }, :method => :post, :style=>'color:#2276BB; font-weight:bold' %></font>
+	   <%
+            end
+         end 
+       %>
+	</td>
+  </tr>
+<% end %>
+<% end %>
+</table>
+
+<br />
+<% form_tag('/posts/search', :method => :get ) do %>
+  <div>
+    <%= text_field_tag :searchstr, params[:searchstr], :size => 60 %>
+    <%= submit_tag "Search" %>
+  </div>
+<% end %>

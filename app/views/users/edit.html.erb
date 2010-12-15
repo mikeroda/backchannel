@@ -1,0 +1,31 @@
+<div class="backchannel-form">
+
+<fieldset>
+	<legend>Edit Account</legend>
+
+<% form_for(@user) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name, "Name" %>:
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :password, "Password" %>:
+    <%= f.password_field :password, :size => 40 %>
+  </p>
+  <p>
+    <%= f.label :password_confirmation, "Confirm" %>:
+    <%= f.password_field :password_confirmation, :size => 40 %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+
+</fieldset>
+<% end %>
+</div>
+
+<br />
+<%= link_to 'Back', :back %>
+

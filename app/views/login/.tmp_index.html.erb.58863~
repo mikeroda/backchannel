@@ -1,0 +1,58 @@
+<h1>Backchannel Application</h1>
+
+<div class="backchannel-form">
+
+<% form_tag(:controller => "login", :action => "login") do %>
+<fieldset>
+	<legend>Please Log In</legend>
+	
+	<table cellspacing="10">
+	  <tr>
+	  	<td>
+		  <label for="name">Name:</label>
+		  <%= text_field_tag :name, params[:name] %>
+		</td>
+		<td>
+		  <label for="password">Password:</label>
+		  <%= password_field_tag :password, params[:password] %>
+		</td>
+		<td>
+  		  <%= submit_tag "Login" %>
+	    </td>
+	  </tr>
+	</table>
+</fieldset>
+<% end %>
+</div>
+
+<br><br>
+
+<div class="backchannel-form">
+
+<% form_for :user, :url => { :controller => :users, :action => :create } do |f| %>
+  <%= f.error_messages %>
+
+  <fieldset>
+  <legend>Create New Account</legend>
+  
+  <div>
+    <%= f.label :name %>:
+    <%= f.text_field :name, :size => 40 %>
+  </div>
+  <div>
+    <%= f.label :password, "Password" %>:
+    <%= f.password_field :password, :size => 40 %>
+  </div>
+  <div>
+    <%= f.label :password_confirmation, "Confirm" %>:
+    <%= f.password_field :password_confirmation, :size => 40 %>
+  </div>
+
+  <div>
+  <%= f.submit "Add User", :class => "submit" %>
+  </div>
+  
+  </fieldset>
+  
+<% end %>
+</div>

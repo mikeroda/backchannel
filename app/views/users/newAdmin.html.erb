@@ -1,0 +1,29 @@
+<div class="backchannel-form">
+
+<% form_for :user, :url => { :controller => :users, :action => :createAdmin } do |f| %>
+  <%= f.error_messages %>
+
+  <fieldset>
+  <legend>Create New Administrator Account</legend>
+  
+  <div>
+    <%= f.label :name %>:
+    <%= f.text_field :name, :size => 40 %>
+  </div>
+  <div>
+    <%= f.label :password, "Password" %>:
+    <%= f.password_field :password, :size => 40 %>
+  </div>
+  <div>
+    <%= f.label :password_confirmation, "Confirm" %>:
+    <%= f.password_field :password_confirmation, :size => 40 %>
+  </div>
+
+    <%= f.hidden_field :admin, :value => 1 %>
+  <div>
+  <%= f.submit "Add User", :class => "submit" %>
+  </div>
+  
+  </fieldset>
+  
+<% end %>

@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+admin:
+  name: admin
+  salt: 187524400.948901340781961
+  hashed_password: fb10b712a63af1e651aac1e9511c310498ba520d
+  admin: 1
+ 
+mike:
+  name: mike
+  salt: 194313800.247063476030699
+  hashed_password: e00e63f6d768446b2c02eddbbcb2abf9bbfa94b3
+  admin: 0
+
+john:
+  name: john
+  salt: 189899500.437289641679139
+  hashed_password: e2ea9db16ec93214
+  admin: 0

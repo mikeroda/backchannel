@@ -1,0 +1,60 @@
+
+<h1>What's Happening?</h1>
+
+<% 
+user = session[:user];
+if (user)
+
+  form_for :post, :url => { :controller => :posts, :action => :create } do |f| %>
+  <%= f.error_messages %>
+
+  <table>
+  	<tr>
+  	  <td colspan="2">
+        <%= f.text_area :message, :rows => 1, :cols => 60 %>
+      </td>
+	</tr>
+	<tr>
+      <td><font size="1" color="#999999"><b>Logged in as <%= user.name %></b></font></td>
+      <td align="right"><%= f.submit "New Post", :class => "submit" %></td>
+	</tr>
+ 
+<% 
+  end
+end 
+%>
+
+<table cellspacing="8">
+
+<% @posts.each do |post| %>
+  <tr>
+	<td valign="top">
+   	<% if !post.post_id.nil? %>
+	&nbsp;</td><td><table><tr><td valign="top">
+	<% end %>
+  	
+  	<font color="#2276BB"><b><%=h post.user.name %></b></font></td>
+
+    <td>
+    	<%=h post.message %>
+        <br><font color="#999999" size="1"><%=h post.created_at %></font>
+	</td>
+	
+   	<% if !post.post_id.nil? %>
+	</td></tr></table>
+	<% end %>
+	
+    <td valign="middle">
+    	<font color="#999999" size="1">
+    	<%= link_to 'Edit', edit_post_path(post) %>
+    	<%= link_to 'Delete', post, :confirm => 'Are you sure?', :method => :delete %>
+	   	<% if post.post_id.nil? %>
+    		<%= link_to "Reply", { :action => 'new', :post_id => post.id } %>
+		<% end %>
+		</font>
+	</td>
+  </tr>
+<% end %>
+</table>
+
+<br />

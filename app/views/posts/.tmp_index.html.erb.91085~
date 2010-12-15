@@ -1,0 +1,34 @@
+<h1>What's Happening?</h1>
+
+<% 
+   user = session[:user];
+   if (user)
+%>
+	<b>Logged in as <%= user.name %></b><br><br>
+<% 
+   end 
+%>
+
+<table>
+
+<% @posts.each do |post| %>
+  <tr>
+  	<td valign="top"><font color="#2276BB"><b><%=h post.user.name %></b></font></td>
+    <td>
+    	<%=h post.message %>
+        <br><font color="#999999" size="1"><%=h post.created_at %></font>
+	</td>
+    <td valign="bottom">
+    	<font color="#999999" size="1">
+    	<%= link_to 'Edit', edit_post_path(post) %>
+    	<%= link_to 'Delete', post, :confirm => 'Are you sure?', :method => :delete %>
+    	<%= link_to 'Reply', new_post_path %>
+		</font>
+	</td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New post', new_post_path %>

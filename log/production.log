@@ -1,0 +1,80 @@
+
+
+Processing LoginController#index (for 127.0.0.1 at 2010-09-28 17:50:33) [GET]
+
+ActiveRecord::StatementInvalid (Could not find table 'users'):
+  app/controllers/login_controller.rb:4:in `new'
+  app/controllers/login_controller.rb:4:in `index'
+
+Rendering rescues/layout (internal_server_error)
+
+
+Processing LoginController#login (for 127.0.0.1 at 2010-09-28 17:58:25) [POST]
+  Parameters: {"name"=>"mike", "commit"=>"Login", "authenticity_token"=>"XGB12U5gYyNkSsHzPcrDf87anBOjSzJXmJKvt5bwh2A=", "password"=>"mike"}
+Redirected to http://localhost:3000/
+Completed in 15ms (DB: 0) | 302 Found [http://localhost/login/login]
+
+
+Processing LoginController#index (for 127.0.0.1 at 2010-09-28 17:58:25) [GET]
+Rendering template within layouts/login
+Rendering login/index
+Completed in 23ms (View: 21, DB: 0) | 200 OK [http://localhost/]
+
+
+Processing UsersController#create (for 127.0.0.1 at 2010-09-28 17:58:32) [POST]
+  Parameters: {"commit"=>"Add User", "authenticity_token"=>"XGB12U5gYyNkSsHzPcrDf87anBOjSzJXmJKvt5bwh2A=", "user"=>{"name"=>"mike", "password_confirmation"=>"mike", "password"=>"mike"}}
+Redirected to http://localhost:3000/posts
+Completed in 23ms (DB: 1) | 302 Found [http://localhost/users]
+
+
+Processing PostsController#index (for 127.0.0.1 at 2010-09-28 17:58:33) [GET]
+Rendering template within layouts/posts
+Rendering posts/index
+Completed in 31ms (View: 21, DB: 1) | 200 OK [http://localhost/posts]
+
+
+Processing PostsController#create (for 127.0.0.1 at 2010-09-28 17:58:38) [POST]
+  Parameters: {"commit"=>"New Post", "post"=>{"message"=>"this is the first post"}, "authenticity_token"=>"XGB12U5gYyNkSsHzPcrDf87anBOjSzJXmJKvt5bwh2A="}
+Redirected to http://localhost:3000/posts
+Completed in 17ms (DB: 1) | 302 Found [http://localhost/posts]
+
+
+Processing PostsController#index (for 127.0.0.1 at 2010-09-28 17:58:38) [GET]
+Rendering template within layouts/posts
+Rendering posts/index
+Completed in 30ms (View: 25, DB: 2) | 200 OK [http://localhost/posts]
+
+
+Processing PostsController#destroy (for 127.0.0.1 at 2010-09-28 17:58:42) [DELETE]
+  Parameters: {"authenticity_token"=>"XGB12U5gYyNkSsHzPcrDf87anBOjSzJXmJKvt5bwh2A=", "id"=>"1"}
+Redirected to http://localhost:3000/posts
+Completed in 9ms (DB: 2) | 302 Found [http://localhost/posts/1]
+
+
+Processing PostsController#index (for 127.0.0.1 at 2010-09-28 17:58:42) [GET]
+Rendering template within layouts/posts
+Rendering posts/index
+Completed in 13ms (View: 10, DB: 1) | 200 OK [http://localhost/posts]
+
+
+Processing UsersController#index (for 127.0.0.1 at 2010-09-28 17:58:44) [GET]
+Rendering template within layouts/users
+Rendering users/index
+Completed in 19ms (View: 14, DB: 2) | 200 OK [http://localhost/users]
+
+
+Processing PostsController#index (for 127.0.0.1 at 2010-09-28 17:58:49) [GET]
+Rendering template within layouts/posts
+Rendering posts/index
+Completed in 13ms (View: 10, DB: 1) | 200 OK [http://localhost/posts]
+
+
+Processing LoginController#logout (for 127.0.0.1 at 2010-09-28 17:58:50) [GET]
+Redirected to http://localhost:3000/
+Completed in 2ms (DB: 0) | 302 Found [http://localhost/login/logout]
+
+
+Processing LoginController#index (for 127.0.0.1 at 2010-09-28 17:58:50) [GET]
+Rendering template within layouts/login
+Rendering login/index
+Completed in 17ms (View: 15, DB: 0) | 200 OK [http://localhost/]
